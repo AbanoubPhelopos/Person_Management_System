@@ -14,6 +14,7 @@ public class Person
         while (!UniqueName(_name))
         {
             Console.WriteLine("The Name already Used !! Try again ");
+            Console.Write("Enter your Name : ");
             _name = Console.ReadLine();
         }
 
@@ -24,7 +25,9 @@ public class Person
         Phone = _phone;
         int Id = GenerateIds.Id();
         Console.WriteLine($"Your Id is {Id}");
-        StaticInfo.DataBase.Add(Id,this);
+        StaticInfo.findById.Add(Id,this);
+        StaticInfo.findByName.Add(Name,this);
+        Console.ReadKey();
     }
 
     private bool UniqueName(string name)

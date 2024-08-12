@@ -27,6 +27,7 @@ public class Person
         Console.WriteLine($"Your Id is {Id}");
         StaticInfo.findById.Add(Id,this);
         StaticInfo.findByName.Add(Name,this);
+        StaticInfo.NameWithId.Add(Name, Id);
         Console.ReadKey();
     }
 

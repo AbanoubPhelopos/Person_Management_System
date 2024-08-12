@@ -4,7 +4,7 @@ int ans;
 do
 {
     Console.Clear();
-    StartPoint.ConsoleStart();
+    Operations.ConsoleStart();
     ans = int.Parse(Console.ReadLine());
     switch (ans)
     {
@@ -12,18 +12,14 @@ do
             Operations.AddPerson();
             break;
         case 2:
-            Console.Write("Enter the Id : ");
-            Operations.ViewPerson();
-            break;
         case 3:
-            Console.Write("Enter the Name : ");
             Operations.ViewPerson();
             break;
         case 4:
-            
+            Operations.PrintAll();
             break;
         case 5:
-            
+            Operations.DeletePerson();
             break;
         case 6:
             

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Abanoub\\RiderProjects\\PersonManagementSystem\\PersonManagementSystem\\PersonManagementSystem.csproj": {}
+    "C:\\Users\\Abanoub\\RiderProjects\\Person_Management_System\\PersonManagementSystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Abanoub\\RiderProjects\\PersonManagementSystem\\PersonManagementSystem\\PersonManagementSystem.csproj": {
+    "C:\\Users\\Abanoub\\RiderProjects\\Person_Management_System\\PersonManagementSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Abanoub\\RiderProjects\\PersonManagementSystem\\PersonManagementSystem\\PersonManagementSystem.csproj",
+        "projectUniqueName": "C:\\Users\\Abanoub\\RiderProjects\\Person_Management_System\\PersonManagementSystem.csproj",
         "projectName": "PersonManagementSystem",
-        "projectPath": "C:\\Users\\Abanoub\\RiderProjects\\PersonManagementSystem\\PersonManagementSystem\\PersonManagementSystem.csproj",
+        "projectPath": "C:\\Users\\Abanoub\\RiderProjects\\Person_Management_System\\PersonManagementSystem.csproj",
         "packagesPath": "C:\\Users\\Abanoub\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Abanoub\\RiderProjects\\PersonManagementSystem\\PersonManagementSystem\\obj\\",
+        "outputPath": "C:\\Users\\Abanoub\\RiderProjects\\Person_Management_System\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Abanoub\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -12,20 +12,19 @@ do
             Operations.AddPerson();
             break;
         case 2:
-        case 3:
             Operations.ViewPerson();
             break;
-        case 4:
+        case 3:
             Operations.PrintAll();
             break;
-        case 5:
+        case 4:
             Operations.DeletePerson();
             break;
-        case 6:
-            
+        case 5:
+            Operations.DeleteAll();
             break;
-        case 7:
-            
+        case 6:
+            Operations.EditPerson();
             break;
     }
-} while (ans!=8);
+} while (ans != 7);

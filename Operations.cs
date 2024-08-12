@@ -2,96 +2,159 @@
 
 public static class Operations
 {
-/*  
-    5. Delete Person By ID
-    6. Delete All
-    7. Edit Person
-*/
     public static void ConsoleStart()
     {
-        Console.WriteLine("1. Add Person\n2. View Person By ID\n3. View Person By Name\n4. Print All\n5. Delete Person By ID\n6. Delete All\n7. Edit Person\n8. Exit");
+        Console.WriteLine("1. Add Person\n2. View Person\n3. Print All\n4. Delete Person\n5. Delete All\n6. Edit Person\n7. Exit");
     }
-    
+
     public static void AddPerson()
     {
-        string name, phone, city;
-        int age;
-        Console.Clear();
-        Console.Write("Enter your Name : ");
-        name = Console.ReadLine();
-        Console.Write("Enter your Age : ");
-        age = int.Parse(Console.ReadLine());
-        Console.Write("Enter your city : ");
-        city = Console.ReadLine();
-        Console.Write("Enter your phone : ");
-        phone = Console.ReadLine();
-        Person person = new(name, age, city, phone);
+        var (name, age, city, phone) = GetPersonData();
+        try
+        {
+            var person = new Person(name, age, city, phone);
+            Console.WriteLine($"Person added with ID: {person.Id}");
+            Console.ReadKey();
+        }
+        catch (ArgumentException e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
-    
+
     public static void ViewPerson()
     {
-        Console.WriteLine("Enter the person  Name or Id ");
-        string IdOrName = Console.ReadLine();
-        int Id;
-    
-        if (int.TryParse(IdOrName, out Id))
+        Console.Clear();
+        Console.WriteLine("Enter the person Name or ID: ");
+        string idOrName = Console.ReadLine();
+        if (int.TryParse(idOrName, out int id))
         {
-            if (StaticInfo.Ids.Contains(Id))
-                Console.WriteLine(StaticInfo.findById[Id]);
+            if (StaticInfo.GetPersonById(id) is Person person)
+            {
+                Console.WriteLine(person);
+            }
             else
-                Console.WriteLine("Your Id does not refer to any person");
+            {
+                Console.WriteLine("No person found with the given ID.");
+            }
         }
         else
         {
-            if (StaticInfo.Names.Contains(IdOrName))
-                Console.WriteLine(StaticInfo.findByName[IdOrName]);
+            if (StaticInfo.GetPersonByName(idOrName) is Person person)
+            {
+                Console.WriteLine(person);
+            }
             else
-                Console.WriteLine("Your Name does not refer to any person");
+            {
+                Console.WriteLine("No person found with the given name.");
+            }
         }
         Console.ReadKey();
     }
 
     public static void PrintAll()
     {
-        foreach (var person in StaticInfo.Names)
-            Console.WriteLine(StaticInfo.findByName[person]);
+        Console.Clear();
+        foreach (var person in StaticInfo.GetAllPersons())
+        {
+            Console.WriteLine(person);
+        }
     }
+
     public static void DeletePerson()
     {
-        Console.WriteLine("Enter the person  Name or Id ");
-        string IdOrName = Console.ReadLine();
-        int Id;
-    
-        if (int.TryParse(IdOrName, out Id))
+        Console.Clear();
+        Console.WriteLine("Enter the person Name or ID: ");
+        string idOrName = Console.ReadLine();
+        if (int.TryParse(idOrName, out int id))
         {
-            if (StaticInfo.Ids.Contains(Id))
+            if (StaticInfo.RemovePersonById(id))
             {
-                string name = StaticInfo.findById[Id].Name;
-                StaticInfo.Ids.Remove(Id);
-                StaticInfo.Names.Remove(name);
-                StaticInfo.findByName.Remove(name);
-                StaticInfo.NameWithId.Remove(name);
-                StaticInfo.findById.Remove(Id);
-                Console.WriteLine($"{name} : Deleted Successfully !! ");
+                Console.WriteLine("Person deleted successfully.");
             }
             else
-                Console.WriteLine("Your Id does not refer to any person");
+            {
+                Console.WriteLine("No person found with the given ID.");
+            }
         }
         else
         {
-            if (StaticInfo.Names.Contains(IdOrName))
+            if (StaticInfo.RemovePersonByName(idOrName))
             {
-                Id = StaticInfo.NameWithId[IdOrName];
-                StaticInfo.Ids.Remove(Id);
-                StaticInfo.Names.Remove(IdOrName);
-                StaticInfo.findByName.Remove(IdOrName);
-                StaticInfo.NameWithId.Remove(IdOrName);
-                StaticInfo.findById.Remove(Id);
-                Console.WriteLine($"{IdOrName} : Deleted Successfully !! ");
+                Console.WriteLine("Person deleted successfully.");
             }
             else
-                Console.WriteLine("Your Name does not refer to any person");
+            {
+                Console.WriteLine("No person found with the given name.");
+            }
         }
         Console.ReadKey();
+    }
+
+    public static void DeleteAll()
+    {
+        StaticInfo.ClearAll();
+        Console.WriteLine("All persons deleted successfully.");
+    }
+
+    public static void EditPerson()
+    {
+        Console.Clear();
+        Console.WriteLine("Enter the person Name or ID: ");
+        string idOrName = Console.ReadLine();
+        var (name, age, city, phone) = GetPersonData();
+
+        if (int.TryParse(idOrName, out int id))
+        {
+            if (StaticInfo.GetPersonById(id) is Person person)
+            {
+                try
+                {
+                    person.UpdateDetails(name, age, city, phone);
+                    Console.WriteLine("Person details updated successfully.");
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No person found with the given ID.");
+            }
+        }
+        else
+        {
+            if (StaticInfo.GetPersonByName(idOrName) is Person person)
+            {
+                try
+                {
+                    person.UpdateDetails(name, age, city, phone);
+                    Console.WriteLine("Person details updated successfully.");
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No person found with the given name.");
+            }
+        }
+    }
+
+    private static (string name, int age, string city, string phone) GetPersonData()
+    {
+        Console.Clear();
+        Console.Write("Enter Name: ");
+        string name = Console.ReadLine();
+        Console.Write("Enter Age: ");
+        int age = int.Parse(Console.ReadLine());
+        Console.Write("Enter City: ");
+        string city = Console.ReadLine();
+        Console.Write("Enter Phone: ");
+        string phone = Console.ReadLine();
+        return (name, age, city, phone);
     }
 }

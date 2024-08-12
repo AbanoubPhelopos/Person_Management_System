@@ -1,39 +1,45 @@
-﻿using System.Numerics;
-using System.Reflection.Metadata;
-namespace PersonManagementSystem;
+﻿namespace PersonManagementSystem;
 
 public class Person
 {
     public string Name { get; set; }
-    public int Age { get; set; }
-    public string City { get; set; }
-    public string Phone { get; set; }
+    public int Age { get; private set; }
+    public string City { get; private set; }
+    public string Phone { get; private set; }
+    public int Id { get; }
 
-    public Person(string _name, int _age,string _city ,string _phone)
+    public Person(string name, int age, string city, string phone)
     {
-        while (!UniqueName(_name))
+        if (!UniqueName(name))
         {
-            Console.WriteLine("The Name already Used !! Try again ");
-            Console.Write("Enter your Name : ");
-            _name = Console.ReadLine();
+            throw new ArgumentException("Name already used. Please try a different name.");
         }
 
-        Name = _name;
-        StaticInfo.Names.Add(_name);
-        Age = _age;
-        City = _city;
-        Phone = _phone;
-        int Id = GenerateIds.Id();
-        Console.WriteLine($"Your Id is {Id}");
-        StaticInfo.findById.Add(Id,this);
-        StaticInfo.findByName.Add(Name,this);
-        StaticInfo.NameWithId.Add(Name, Id);
-        Console.ReadKey();
+        Name = name;
+        Age = age;
+        City = city;
+        Phone = phone;
+        Id = GenerateIds.GenerateId();
+
+        StaticInfo.AddPerson(this);
     }
 
-    private bool UniqueName(string name)
-        => !StaticInfo.Names.Contains(name);
-    
-    public override string ToString()
-        => $"Name : {Name}, Age : {Age}, City : {City}, Phone : {Phone}";
+    private bool UniqueName(string name) => !StaticInfo.Names.Contains(name);
+
+    public void UpdateDetails(string name, int age, string city, string phone)
+    {
+        if (!UniqueName(name) && name != this.Name)
+        {
+            throw new ArgumentException("Name already used. Please try a different name.");
+        }
+
+        StaticInfo.UpdatePersonName(this, name);
+
+        Name = name;
+        Age = age;
+        City = city;
+        Phone = phone;
+    }
+
+    public override string ToString() => $"ID: {Id}, Name: {Name}, Age: {Age}, City: {City}, Phone: {Phone}";
 }

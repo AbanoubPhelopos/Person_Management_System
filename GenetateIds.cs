@@ -3,20 +3,17 @@
 public static class GenerateIds
 {
     private static int MaxValue = 1;
-    private static Random random = new Random();
+    private static Random random = new();
 
-    public static int Id()
+    public static int GenerateId()
     {
         int newId;
         do
         {
             newId = random.Next(MaxValue, MaxValue + 1000);
         } while (StaticInfo.Ids.Contains(newId));
-        
-        MaxValue = newId + 1;
-        
-        StaticInfo.Ids.Add(newId);
 
+        MaxValue = newId + 1;
         return newId;
     }
 }
